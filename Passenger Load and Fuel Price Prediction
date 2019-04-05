@@ -1,0 +1,147 @@
+library(ggplot2)
+library(forecast)
+library(dplyr)
+library(plyr)
+library(lubridate)
+library(xts)
+library(prophet)
+library(zoo)
+set.seed(1234567)
+
+airlines_load <- read.csv('C:/Users/pf416e/Desktop/ML_Hack/Flight_Ticket_Participant_Datasets/Passenger_load1.csv')
+
+airlines_load$Month = as.yearmon(airlines_load$Month, "%b-%Y")
+glimpse(airlines_load)
+
+#........................... Without any Transformation ...............................
+
+df<-subset(airlines_load, select = c(Month,Air_India))
+colnames(df) <- c("ds","y")
+plot(y ~ ds, df, type = "l")
+m <- prophet(df)
+test_df <- read.csv('C:/Users/pf416e/Desktop/ML_Hack/Flight_Ticket_Participant_Datasets/Forecast_time1.csv')
+test_df1<-subset(test_df, select = c(Month))
+test_df1$Month = as.yearmon(test_df1$Month, "%b-%Y")
+colnames(test_df1) <- c("ds")
+forecast <- predict(m, test_df1)
+forecast_ai<-subset(forecast, select=c(yhat_lower))
+forecast_ai$Airline<-'Air India'
+forecast_ai$Month <- seq.int(nrow(forecast_ai))
+
+df<-subset(airlines_load, select = c(Month,Jet_Airways))
+colnames(df) <- c("ds","y")
+plot(y ~ ds, df, type = "l")
+m <- prophet(df)
+test_df <- read.csv('C:/Users/pf416e/Desktop/ML_Hack/Flight_Ticket_Participant_Datasets/Forecast_time1.csv')
+test_df1<-subset(test_df, select = c(Month))
+test_df1$Month = as.yearmon(test_df1$Month, "%b-%Y")
+colnames(test_df1) <- c("ds")
+forecast <- predict(m, test_df1)
+forecast_ja<-subset(forecast, select=c(yhat_lower))
+forecast_ja$Airline<-'Jet Airways'
+forecast_ja$Month <- seq.int(nrow(forecast_ja))
+
+df<-subset(airlines_load, select = c(Month,Spice_Jet))
+colnames(df) <- c("ds","y")
+plot(y ~ ds, df, type = "l")
+m <- prophet(df)
+test_df <- read.csv('C:/Users/pf416e/Desktop/ML_Hack/Flight_Ticket_Participant_Datasets/Forecast_time1.csv')
+test_df1<-subset(test_df, select = c(Month))
+test_df1$Month = as.yearmon(test_df1$Month, "%b-%Y")
+colnames(test_df1) <- c("ds")
+forecast <- predict(m, test_df1)
+forecast_sj<-subset(forecast, select=c(yhat_lower))
+forecast_sj$Airline<-'SpiceJet'
+forecast_sj$Month <- seq.int(nrow(forecast_sj))
+
+
+df<-subset(airlines_load, select = c(Month,Go_Air))
+colnames(df) <- c("ds","y")
+plot(y ~ ds, df, type = "l")
+m <- prophet(df)
+test_df <- read.csv('C:/Users/pf416e/Desktop/ML_Hack/Flight_Ticket_Participant_Datasets/Forecast_time1.csv')
+test_df1<-subset(test_df, select = c(Month))
+test_df1$Month = as.yearmon(test_df1$Month, "%b-%Y")
+colnames(test_df1) <- c("ds")
+forecast <- predict(m, test_df1)
+forecast_ga<-subset(forecast, select=c(yhat_lower))
+forecast_ga$Airline<-'GoAir'
+forecast_ga$Month <- seq.int(nrow(forecast_ga))
+
+df<-subset(airlines_load, select = c(Month,IndiGo))
+colnames(df) <- c("ds","y")
+plot(y ~ ds, df, type = "l")
+m <- prophet(df)
+test_df <- read.csv('C:/Users/pf416e/Desktop/ML_Hack/Flight_Ticket_Participant_Datasets/Forecast_time1.csv')
+test_df1<-subset(test_df, select = c(Month))
+test_df1$Month = as.yearmon(test_df1$Month, "%b-%Y")
+colnames(test_df1) <- c("ds")
+forecast <- predict(m, test_df1)
+forecast_ig<-subset(forecast, select=c(yhat_lower))
+forecast_ig$Airline<-'IndiGo'
+forecast_ig$Month <- seq.int(nrow(forecast_ig))
+
+
+df<-subset(airlines_load, select = c(Month,Air_Asia))
+colnames(df) <- c("ds","y")
+plot(y ~ ds, df, type = "l")
+m <- prophet(df)
+test_df <- read.csv('C:/Users/pf416e/Desktop/ML_Hack/Flight_Ticket_Participant_Datasets/Forecast_time1.csv')
+test_df1<-subset(test_df, select = c(Month))
+test_df1$Month = as.yearmon(test_df1$Month, "%b-%Y")
+colnames(test_df1) <- c("ds")
+forecast <- predict(m, test_df1)
+forecast_aa<-subset(forecast, select=c(yhat_lower))
+forecast_aa$Airline<-'Air Asia'
+forecast_aa$Month <- seq.int(nrow(forecast_aa))
+
+
+df<-subset(airlines_load, select = c(Month,Vistara))
+colnames(df) <- c("ds","y")
+plot(y ~ ds, df, type = "l")
+m <- prophet(df)
+test_df <- read.csv('C:/Users/pf416e/Desktop/ML_Hack/Flight_Ticket_Participant_Datasets/Forecast_time1.csv')
+test_df1<-subset(test_df, select = c(Month))
+test_df1$Month = as.yearmon(test_df1$Month, "%b-%Y")
+colnames(test_df1) <- c("ds")
+forecast <- predict(m, test_df1)
+forecast_vt<-subset(forecast, select=c(yhat_lower))
+forecast_vt$Airline<-'Vistara'
+forecast_vt$Month <- seq.int(nrow(forecast_vt))
+
+
+df<-subset(airlines_load, select = c(Month,Truejet))
+colnames(df) <- c("ds","y")
+plot(y ~ ds, df, type = "l")
+m <- prophet(df)
+test_df <- read.csv('C:/Users/pf416e/Desktop/ML_Hack/Flight_Ticket_Participant_Datasets/Forecast_time1.csv')
+test_df1<-subset(test_df, select = c(Month))
+test_df1$Month = as.yearmon(test_df1$Month, "%b-%Y")
+colnames(test_df1) <- c("ds")
+forecast <- predict(m, test_df1)
+forecast_tj<-subset(forecast, select=c(yhat_lower))
+forecast_tj$Airline<-'Trujet'
+forecast_tj$Month <- seq.int(nrow(forecast_tj))
+
+
+al_airlines=rbind(forecast_tj,forecast_vt,forecast_aa,forecast_ig,forecast_ga,forecast_sj,forecast_ja,forecast_ai)
+write.csv(al_airlines,'C:/Users/pf416e/Desktop/ML_Hack/Flight_Ticket_Participant_Datasets/result1_prohet_forecasted1_min.csv')
+
+
+#Fuel Price:
+fl_price <- read.csv('C:/Users/pf416e/Desktop/ML_Hack/Flight_Ticket_Participant_Datasets/Fuel Price1.csv')
+
+fl_price$Month = as.yearmon(fl_price$Month, "%b-%Y")
+glimpse(fl_price)
+
+df<-subset(fl_price, select = c(Month,INR_Price))
+colnames(df) <- c("ds","y")
+plot(y ~ ds, df, type = "l")
+m <- prophet(df)
+test_df <- read.csv('C:/Users/pf416e/Desktop/ML_Hack/Flight_Ticket_Participant_Datasets/Forecast_time1.csv')
+test_df1<-subset(test_df, select = c(Month))
+test_df1$Month = as.yearmon(test_df1$Month, "%b-%Y")
+colnames(test_df1) <- c("ds")
+forecast <- predict(m, test_df1)
+forecast_fl_gl<-subset(forecast, select=c(yhat_lower))
+forecast_fl_gl$Month <- seq.int(nrow(forecast_fl_gl))
